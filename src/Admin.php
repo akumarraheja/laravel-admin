@@ -192,7 +192,7 @@ class Admin
             if (!empty($item['children'])) {
                 $links = array_merge($links, $this->menuLinks($item['children']));
             } else {
-                $links[] = Arr::only($item, ['title', 'uri', 'icon']);
+                $links[] = Arr::only($item, ['title', 'uri', 'icon', 'type']);
             }
         }
 

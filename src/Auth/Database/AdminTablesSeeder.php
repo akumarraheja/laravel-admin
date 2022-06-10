@@ -19,7 +19,9 @@ class AdminTablesSeeder extends Seeder
         Administrator::create([
             'username' => 'admin',
             'password' => Hash::make('admin'),
-            'name'     => 'Administrator',
+            'name'     => 'Admin',
+            'avatar'   => 'images/users-vector-icon-png_260862.jpg',
+            'email'    => 'akumarraheja@gmail.com'
         ]);
 
         // create a role.
@@ -120,6 +122,13 @@ class AdminTablesSeeder extends Seeder
                 'title'     => 'Operation log',
                 'icon'      => 'fa-history',
                 'uri'       => 'auth/logs',
+            ],
+            [
+                'parent_id' => 0,
+                'order'     => 8,
+                'title'     => 'Adminer',
+                'icon'      => 'fa-database',
+                'uri'       => 'http://'.env('APP_URL').'/admin/adminer',
             ],
         ]);
 

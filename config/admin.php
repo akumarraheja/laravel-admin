@@ -11,7 +11,7 @@ return [
     | login page.
     |
     */
-    'name' => 'Laravel-admin',
+    'name' => 'Akr Pvt. Ltd.',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<b>Laravel</b> admin',
+    'logo' => '<b>Akr</b> Framework',
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ return [
     | '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo-mini' => '<b>La</b>',
+    'logo-mini' => '<b>Akr</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -153,7 +153,7 @@ return [
     'upload' => [
 
         // Disk in `config/filesystem.php`.
-        'disk' => 'admin',
+        'disk' => 'public',
 
         // Image and file upload path under the disk above.
         'directory' => [
@@ -180,23 +180,23 @@ return [
         'users_model' => Encore\Admin\Auth\Database\Administrator::class,
 
         // Role table and model.
-        'roles_table' => 'admin_roles',
+        'roles_table' => 'roles',
         'roles_model' => Encore\Admin\Auth\Database\Role::class,
 
         // Permission table and model.
-        'permissions_table' => 'admin_permissions',
+        'permissions_table' => 'permissions',
         'permissions_model' => Encore\Admin\Auth\Database\Permission::class,
 
         // Menu table and model.
-        'menu_table' => 'admin_menu',
+        'menu_table' => 'menu',
         'menu_model' => Encore\Admin\Auth\Database\Menu::class,
 
         // Pivot table for table above.
         'operation_log_table'    => 'admin_operation_log',
         'user_permissions_table' => 'admin_user_permissions',
         'role_users_table'       => 'admin_role_users',
-        'role_permissions_table' => 'admin_role_permissions',
-        'role_menu_table'        => 'admin_role_menu',
+        'role_permissions_table' => 'role_permissions',
+        'role_menu_table'        => 'role_menu',
     ],
 
     /*
