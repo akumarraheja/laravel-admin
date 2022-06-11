@@ -43,6 +43,11 @@ class Collapse extends Widget implements Renderable
 
         return $this;
     }
+    
+    public function addMultiple($arr){
+        $this->items = $arr;
+        return $this;
+    }
 
     protected function variables()
     {

@@ -3,6 +3,7 @@
 namespace Encore\Admin\Auth\Database;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AdminTablesSeeder extends Seeder
@@ -16,12 +17,14 @@ class AdminTablesSeeder extends Seeder
     {
         // create a user.
         Administrator::truncate();
-        Administrator::create([
+        Administrator::insert([
+            [
             'username' => 'admin',
             'password' => Hash::make('admin'),
             'name'     => 'Admin',
             'avatar'   => 'images/users-vector-icon-png_260862.jpg',
             'email'    => 'akumarraheja@gmail.com'
+            ]
         ]);
 
         // create a role.
@@ -67,6 +70,18 @@ class AdminTablesSeeder extends Seeder
                 'http_method' => '',
                 'http_path'   => "/auth/roles\r\n/auth/permissions\r\n/auth/menu\r\n/auth/logs",
             ],
+            [
+                'name'        => 'CRUD Management',
+                'slug'        => 'crud',
+                'http_method' => '',
+                'http_path'   => "/auth/crud",
+            ],
+            [
+                'name'        => 'Database Management',
+                'slug'        => 'auth.db',
+                'http_method' => '',
+                'http_path'   => "/adminer",
+            ],
         ]);
 
         Role::first()->permissions()->save(Permission::first());
@@ -80,7 +95,8 @@ class AdminTablesSeeder extends Seeder
                 'order'     => 1,
                 'title'     => 'CRUD',
                 'icon'      => 'fa-puzzle-piece',
-                'uri'       => 'auth/crud',
+                'uri'       => 'crud',
+                'permission'=> 'crud'
             ],
             [
                 'parent_id' => 0,
@@ -88,6 +104,7 @@ class AdminTablesSeeder extends Seeder
                 'title'     => 'Dashboard',
                 'icon'      => 'fa-bar-chart',
                 'uri'       => '/',
+                'permission'=> null
             ],
             [
                 'parent_id' => 0,
@@ -95,48 +112,55 @@ class AdminTablesSeeder extends Seeder
                 'title'     => 'Admin',
                 'icon'      => 'fa-tasks',
                 'uri'       => '',
+                'permission'=> '*'
             ],
             [
-                'parent_id' => 2,
+                'parent_id' => 3,
                 'order'     => 4,
                 'title'     => 'Users',
                 'icon'      => 'fa-users',
                 'uri'       => 'auth/users',
+                'permission'=> null
             ],
             [
-                'parent_id' => 2,
+                'parent_id' => 3,
                 'order'     => 5,
                 'title'     => 'Roles',
                 'icon'      => 'fa-user',
                 'uri'       => 'auth/roles',
+                'permission'=> null
             ],
             [
-                'parent_id' => 2,
+                'parent_id' => 3,
                 'order'     => 6,
                 'title'     => 'Permission',
                 'icon'      => 'fa-ban',
                 'uri'       => 'auth/permissions',
+                'permission'=> null
             ],
             [
-                'parent_id' => 2,
+                'parent_id' => 3,
                 'order'     => 7,
                 'title'     => 'Menu',
                 'icon'      => 'fa-bars',
                 'uri'       => 'auth/menu',
+                'permission'=> null
             ],
             [
-                'parent_id' => 2,
+                'parent_id' => 3,
                 'order'     => 8,
                 'title'     => 'Operation log',
                 'icon'      => 'fa-history',
                 'uri'       => 'auth/logs',
+                'permission'=> null
             ],
             [
-                'parent_id' => 0,
+                'parent_id' => 3,
                 'order'     => 9,
                 'title'     => 'Adminer',
                 'icon'      => 'fa-database',
                 'uri'       => 'http://'.env('APP_URL').'/admin/adminer',
+                'permission'=> 'auth.db'
             ],
         ]);
 

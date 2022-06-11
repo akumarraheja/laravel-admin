@@ -1,10 +1,10 @@
 <div {!! $attributes !!}>
     @foreach($items as $key => $item)
-    <div class="panel box box-primary" style="margin-bottom: 0px">
+    <div class="panel box box-primary" style="margin-bottom: 8px">
         <div class="box-header with-border">
             <h4 class="box-title">
                 <a data-toggle="collapse" data-parent="#{{$id}}" href="#collapse{{ $key }}">
-                    {{ $item['title'] }}
+                    {!! $item['title'] !!}
                 </a>
             </h4>
         </div>

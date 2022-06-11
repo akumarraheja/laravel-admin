@@ -8,7 +8,9 @@ use Encore\Admin\Controllers\AuthController;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Traits\HasAssets;
 use Encore\Admin\Widgets\Navbar;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use InvalidArgumentException;
@@ -19,6 +21,8 @@ use InvalidArgumentException;
 class Admin
 {
     use HasAssets;
+
+    public static $permissions = null; 
 
     /**
      * The Laravel admin version.
@@ -70,6 +74,21 @@ class Admin
     public static function getLongVersion()
     {
         return sprintf('Laravel-admin <comment>version</comment> <info>%s</info>', self::VERSION);
+    }
+
+    /**
+     *
+     * @return Collection
+     */
+    public static function getAllPermissions(){
+        if(is_null(self::$permissions)){
+            /**
+             * @var Model $permissionModel
+             */
+            $permissionModel = config('admin.database.permissions_model');
+            self::$permissions = $permissionModel::all();
+        }
+        return self::$permissions;
     }
 
     /**
@@ -314,12 +333,12 @@ class Admin
         app('router')->group($attributes, function ($router) {
 
             /* @var \Illuminate\Support\Facades\Route $router */
-            $router->namespace('\Encore\Admin\Controllers')->group(function ($router) {
+            $router->namespace('\Encore\Admin\Controllers')->group(function (Router $router) {
 
                 /* @var \Illuminate\Routing\Router $router */
                 $router->resource('auth/users', 'UserController')->names('admin.auth.users');
                 $router->resource('auth/roles', 'RoleController')->names('admin.auth.roles');
-                $router->resource('auth/crud', 'CrudController')->names('admin.cruds');
+                $router->resource('crud', 'CrudController')->names('admin.cruds');
                 $router->resource('auth/permissions', 'PermissionController')->names('admin.auth.permissions');
                 $router->resource('auth/menu', 'MenuController', ['except' => ['create']])->names('admin.auth.menu');
                 $router->resource('auth/logs', 'LogController', ['only' => ['index', 'destroy']])->names('admin.auth.logs');

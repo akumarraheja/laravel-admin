@@ -79,6 +79,21 @@ if (!function_exists('admin_toastr')) {
         session()->flash('toastr', $toastr);
     }
 }
+if(!function_exists('admin_cruds')){
+    function admin_cruds($cruds=false){
+        $crud_file_path  = base_path('custom').'/cruds/data.json';
+        if($cruds){
+            file_put_contents($crud_file_path, json_encode($cruds));
+            return;
+        }
+        try{
+            $cruds = json_decode(file_get_contents($crud_file_path), true);
+        } catch (Throwable $e){
+            $cruds = [];
+        }
+        return $cruds;
+    }
+}
 
 if (!function_exists('admin_success')) {
 
