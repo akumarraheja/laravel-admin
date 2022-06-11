@@ -166,6 +166,12 @@ class CrudController extends Controller{
             $namespace = str_replace('.', '/', $slug);
             $classname = ucfirst(substr($slug, $pos+1));
         }
+
+        // create views directory
+        $viewdir = base_path('custom/views/'.strtolower($namespace));
+        if(!file_exists($viewdir)) mkdir($viewdir, 0777, true);
+
+        // create controller directory and controller php
         $controllerDir = base_path('custom/packages/'.$namespace.'/Controller');
         if(!file_exists($controllerDir)) mkdir($controllerDir, 0777, true);
         if(!file_exists($controllerDir."/$classname.php")) {
@@ -175,6 +181,7 @@ class CrudController extends Controller{
             $stubcontroller = str_replace('{{classname}}', $classname, $stubcontroller);
             file_put_contents($controllerDir."/$classname.php", $stubcontroller);
         }
+        shell_exec('chmod 777 -R '.base_path(''));
         
     }
 }
