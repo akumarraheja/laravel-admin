@@ -14,6 +14,3 @@ Route::group([
     $router->get('/', 'HomeController@index')->name('home');
 
 });
-
-Route::any('/', '\Encore\Admin\Controllers\AppController@routesHandler');
-Route::any('{slug}', '\Encore\Admin\Controllers\AppController@routesHandler')->where('slug', '(.*)?');
