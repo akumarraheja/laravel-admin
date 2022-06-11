@@ -175,7 +175,6 @@ class CrudController extends Controller{
         $controllerDir = base_path('custom/packages/'.$namespace.'/Controller');
         if(!file_exists($controllerDir)) mkdir($controllerDir, 0777, true);
         if(!file_exists($controllerDir."/$classname.php")) {
-            $file = fopen($controllerDir."/$classname.php", 'w'); fclose($file);
             $stubcontroller = file_get_contents(__DIR__.'/../Console/stubs/AkrController.stub');
             $stubcontroller = str_replace('{{namespace}}', str_replace('/', '\\', $namespace), $stubcontroller);
             $stubcontroller = str_replace('{{classname}}', $classname, $stubcontroller);
