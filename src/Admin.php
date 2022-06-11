@@ -319,6 +319,7 @@ class Admin
                 /* @var \Illuminate\Routing\Router $router */
                 $router->resource('auth/users', 'UserController')->names('admin.auth.users');
                 $router->resource('auth/roles', 'RoleController')->names('admin.auth.roles');
+                $router->resource('auth/crud', 'CrudController')->names('admin.cruds');
                 $router->resource('auth/permissions', 'PermissionController')->names('admin.auth.permissions');
                 $router->resource('auth/menu', 'MenuController', ['except' => ['create']])->names('admin.auth.menu');
                 $router->resource('auth/logs', 'LogController', ['only' => ['index', 'destroy']])->names('admin.auth.logs');
