@@ -37,7 +37,7 @@ class CrudController extends Controller{
 
     protected function getForm($data=[]){
         $form = new Form($data);
-        $form->text('slug', 'Slug')->rules('required|regex:/(?<!admin)/|min:3', ['regex'=>'Crud slug cannot be "admin"'])->icon('mdi mdi-puzzle');
+        $form->text('slug', 'Route')->rules('required|regex:/(?<!admin)/|min:3', ['regex'=>'Crud slug cannot be "admin"'])->icon('mdi mdi-puzzle');
         $form->text('name', 'Display Name')->rules('required|min:3')->icon('mdi mdi-puzzle');
         $form->select('authtype', 'Authentication')->options(['Guest'=>'Guest', 'Auth'=>'Auth'])->rules('required');
         $form->select('permission', 'Permission')->options(Admin::getAllPermissions()->pluck('name', 'id'));
@@ -85,7 +85,7 @@ class CrudController extends Controller{
         $cruds = admin_cruds();
         $permissions = Admin::getAllPermissions()->keyBy('id');
         
-        $headers = ['Slug', 'Name', 'Authentication', 'Permission', 'Actions'];
+        $headers = ['Route', 'Name', 'Authentication', 'Permission', 'Actions'];
         $rows = [];
         foreach($cruds as $slug => $crud){
             $rows[]=[
