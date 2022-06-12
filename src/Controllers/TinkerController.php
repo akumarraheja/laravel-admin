@@ -23,6 +23,7 @@ class TinkerController extends Controller{
             $user = Admin::user();
             file_put_contents($this->getViewPath($user), $request->get('tinkercode'));
             $view = view('admin::tinker.user_'.$user->id)->render();
+            if(empty($view)) return 'Nothing to display';
             return $view;
         } catch (Throwable $e){
             dump($e);
