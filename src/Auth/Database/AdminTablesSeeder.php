@@ -162,6 +162,14 @@ class AdminTablesSeeder extends Seeder
                 'uri'       => 'http://'.env('APP_URL').'/admin/adminer',
                 'permission'=> 'auth.db'
             ],
+            [
+                'parent_id' => 0,
+                'order'     => 10,
+                'title'     => 'Tinker',
+                'icon'      => 'fa-code',
+                'uri'       => 'tinker',
+                'permission'=> ''
+            ]
         ]);
 
         // add role to menu.

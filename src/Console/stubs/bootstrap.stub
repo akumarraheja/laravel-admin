@@ -20,4 +20,33 @@
 
 Encore\Admin\Form::forget(['map', 'editor']);
 Admin::css('/css/icons.min.css');
+Admin::css('/css/styles.css');
 Admin::css('https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css');
+
+// code mirror css
+Admin::css(url('/codemirror/lib/codemirror.css'));
+Admin::css('/codemirror/addon/dialog/dialog.css');
+Admin::css('/codemirror/addon/fold/foldgutter.css');
+Admin::css('/codemirror/addon/hint/show-hint.css');
+Admin::css('/codemirror/addon/search/matchesonscrollbar.css');
+// code mirror lib and addons
+Admin::js(url('/codemirror/lib/codemirror.js'));
+Admin::js(url('/codemirror/mode/php/php.js'));
+Admin::js(url('/codemirror/mode/css/css.js'));
+Admin::js(url('/codemirror/mode/javascript/javascript.js'));
+Admin::js(url('/codemirror/mode/xml/xml.js'));
+Admin::js(url('/codemirror/mode/htmlmixed/htmlmixed.js'));
+Admin::js(url('/codemirror/mode/clike/clike.js'));
+Admin::js('/codemirror/addon/edit/closebrackets.js');
+Admin::js('/codemirror/addon/edit/matchbrackets.js');
+Admin::js('/codemirror/addon/dialog/dialog.js');
+Admin::js('/codemirror/addon/search/search.js');
+Admin::js('/codemirror/addon/search/searchcursor.js');
+Admin::js('/codemirror/addon/search/match-highlighter.js');
+Admin::js('/codemirror/addon/comment/comment.js');
+Admin::js('/codemirror/addon/fold/foldcode.js');
+Admin::js('/codemirror/addon/fold/brace-fold.js');
+Admin::js('/codemirror/addon/fold/indent-fold.js');
+Admin::js('/codemirror/addon/fold/foldgutter.js');
+Admin::js('/codemirror/addon/hint/anyword-hint.js');
+Admin::js('/codemirror/addon/hint/show-hint.js');
