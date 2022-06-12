@@ -23,7 +23,7 @@ class AppController{
             if(empty($user)) return redirect()->to(url('/auth'));
             $permission = $cruds[$routekey]['permission'];
             if(!empty($permission) && !$user->can($permission) && !$user->can('*')){
-                return abort(403, 'Sorry, You\'re not authorized to perform this action');
+                return abort(403, 'Sorry, You don\'t have permissions to view this page');
             }
         }
         if($request->has('__view')){
