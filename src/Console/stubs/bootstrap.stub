@@ -20,6 +20,7 @@
 
 Encore\Admin\Form::forget(['map', 'editor']);
 Admin::css('/css/icons.min.css');
+Admin::css('/css/tailwind.css');
 Admin::css('/css/styles.css');
 Admin::css('https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css');
 
@@ -48,5 +49,8 @@ Admin::js('/codemirror/addon/fold/foldcode.js');
 Admin::js('/codemirror/addon/fold/brace-fold.js');
 Admin::js('/codemirror/addon/fold/indent-fold.js');
 Admin::js('/codemirror/addon/fold/foldgutter.js');
+Admin::js('/codemirror/addon/fold/xml-fold.js');
+Admin::js('/codemirror/addon/edit/closetag.js');
+Admin::js('/codemirror/addon/edit/trailingspace.js');
 Admin::js('/codemirror/addon/hint/anyword-hint.js');
 Admin::js('/codemirror/addon/hint/show-hint.js');

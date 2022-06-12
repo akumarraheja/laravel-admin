@@ -24,7 +24,9 @@
             highlightSelectionMatches: {
                 minChars: 2,
                 style: 'akr-highlight'
-            }
+            },
+            autoCloseTags: true,
+            showTrailingSpace: true
         });
         editor.getDoc().setValue("{!! $tinkercode !!}");
         editor.setOption("extraKeys", {
