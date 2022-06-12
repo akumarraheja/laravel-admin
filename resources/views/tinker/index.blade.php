@@ -26,7 +26,7 @@
                 style: 'akr-highlight'
             }
         });
-        editor.getDoc().setValue("<?php\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        editor.getDoc().setValue("{!! $tinkercode !!}");
         editor.setOption("extraKeys", {
             'Ctrl-/': function(cm) {
                 cm.toggleComment();
