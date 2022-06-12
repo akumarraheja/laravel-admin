@@ -12,25 +12,28 @@ trait ModelTrait{
     public function getData($key=''){
         $columns = Schema::getColumnListing($this->getTable());
         if(in_array($key, $columns)) return $this->{$columns[$key]};
+        $this->parseData();
+        if(empty($key)) return $this->decodeddata;
         if(in_array('data', $columns)){
-            $this->parseData();
-            if(empty($key)) return $this->decodeddata;
             return Arr::get($this->decodeddata, $key);
         }
     }
 
     public function setData($key, $value){
-        $this->parseData();
-        if(empty($key)) {
-            $this->data = '';
-        } else Arr::set($this->decodeddata, $key, $value);
-        
+        if(empty($key)){
+            $this->decodeddata = null;
+            $this->data = json_encode($value);
+        } else {
+            $this->parseData(); 
+            Arr::set($this->decodeddata, $key, $value);
+            $this->data = json_encode($this->decodeddata);
+        }
         $this->save();
     }
 
     protected function parseData(){
         if(is_null($this->decodeddata)){
-            $this->decodeddata = json_decode($this->data, true);
+            $this->decodeddata = json_decode($this->data, true)??[];
         }
     }
 }
