@@ -4,6 +4,7 @@ namespace Encore\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
 use Encore\Admin\Admin;
+use Encore\Admin\Facades\Admin as FacadesAdmin;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Widgets\Collapse;
@@ -17,14 +18,18 @@ use function PHPUnit\Framework\directoryExists;
 
 class CrudController extends Controller{
     public function index(Content $content){
+        $user = FacadesAdmin::user();
+        if(empty($user)) return redirect()->to(url('/'));
+        $indexes = ['1', '0'];
+        if(Session::has('formerror')) $indexes = ['0','1'];
         return $content
             ->title('Manage CRUD')
             ->description('Simple Routing Solution')
             ->body((new Collapse())->addMultiple([
-                '1'=>[
+                $indexes[0]=>[
                     'title'=>'<i class="mdi mdi-puzzle-plus mr-1"></i>New CRUD',
                     'content'=>$this->getForm()->render()
-                ],'0'=>[
+                ],$indexes[1]=>[
                     'title'=>'<i class="mdi mdi-puzzle mr-1"></i>Available CRUD',
                     'content'=>$this->getCrudTable()->render()
                 ],
@@ -37,7 +42,7 @@ class CrudController extends Controller{
 
     protected function getForm($data=[]){
         $form = new Form($data);
-        $form->text('slug', 'Route')->rules('required|regex:/(?<!admin)/|min:3', ['regex'=>'Crud slug cannot be "admin"'])->icon('mdi mdi-puzzle');
+        $form->text('slug', 'Route')->rules('required|regex:/^(?!admin)(?=[a-z]{1})[\w\d]+$/|min:3', ['regex'=>'Must start with a small alphabet, and cannot start with "admin". Only Alphanumeric characters allowed'])->icon('mdi mdi-puzzle');
         $form->text('name', 'Display Name')->rules('required|min:3')->icon('mdi mdi-puzzle');
         $form->select('authtype', 'Authentication')->options(['Guest'=>'Guest', 'Auth'=>'Auth'])->rules('required');
         $form->select('permission', 'Permission')->options(Admin::getAllPermissions()->pluck('name', 'id'));
@@ -56,6 +61,7 @@ class CrudController extends Controller{
 
             return back();
         } else {
+            Session::flash('formerror');
             return back()->withInput()->withErrors($res);
         }
     }
