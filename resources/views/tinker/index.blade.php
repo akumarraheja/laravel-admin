@@ -1,4 +1,12 @@
-<textarea id="tinkercode"></textarea>
+<form action="tinker" method="post" targetdiv="#tinker_result" pjax-container>
+    @method('post')
+    @csrf
+    <textarea id="tinkercode" name="tinkercode"></textarea>
+    <div class="flex items-center">
+        <button type="submit" class="border-red-600 bg-red-400 rounded mt-4 px-4 py-2 text-white">Submit</button>
+    </div>
+</form>
+<div id="tinker_result" class="mt-8"></div>
 <script>
     $(document).ready(function(){
         var editor = CodeMirror.fromTextArea($('#tinkercode').get(0), {
