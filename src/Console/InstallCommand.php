@@ -34,9 +34,9 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        $this->initDatabase();
-
         $this->initAdminDirectory();
+        
+        $this->initDatabase();
     }
 
     /**
@@ -79,8 +79,19 @@ class InstallCommand extends Command
         $this->createAuthController();
         $this->createExampleController();
 
+        $this->createModelTrait();
+
         $this->createBootstrapFile();
         $this->createRoutesFile();
+
+    }
+
+    public function createModelTrait(){
+        $modeltrait = $this->directory.'/ModelTrait.php';
+        $contents = $this->getStub('ModelTrait');
+
+        $this->laravel['files']->put( $modeltrait,$contents );
+        $this->line('<info>ModelTrait file was created:</info> '.str_replace(base_path(), '', $modeltrait));
     }
 
     /**
