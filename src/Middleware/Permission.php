@@ -56,6 +56,7 @@ class Permission
      */
     public function checkRoutePermission(Request $request)
     {
+        if(!$request->is('admin')) return true;
         if (!$middleware = collect($request->route()->middleware())->first(function ($middleware) {
             return Str::startsWith($middleware, $this->middlewarePrefix);
         })) {
