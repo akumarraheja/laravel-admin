@@ -1,52 +1,31 @@
-<form action="tinker" method="post" targetdiv="#tinker_result" pjax-container>
+<form action="tinker" id="tinker-form" method="post">
     @method('post')
     @csrf
-    <textarea id="tinkercode" name="tinkercode"></textarea>
+    <textarea id="aceeditorcode" name="aceeditorcode"></textarea>
+    <textarea id="tinkercode" name="tinkercode" hidden></textarea>
     <div class="flex items-center">
         <button type="submit" class="border-red-600 bg-red-400 rounded mt-4 px-4 py-2 text-white">Submit</button>
     </div>
 </form>
 <div id="tinker_result" class="mt-8"></div>
 <script>
+    var editor = undefined;
     $(document).ready(function(){
-        var editor = CodeMirror.fromTextArea($('#tinkercode').get(0), {
-            mode: 'php',
-            lineNumbers: true,
-            indentUnit: 2,
+        editor = ace.edit("aceeditorcode",{
+            mode: "ace/mode/php",
+            selectionStyle:"text",
+            useSoftTabs: true,
             tabSize: 2,
-            lineWiseCopyCut: true,
-            autoCloseBrackets: true,
-            matchBrackets: true,
-            scanUp: true,
-            minFoldSize: 3,
-            gutters: ['CodeMirror-foldgutter'],
-            foldGutter: true,
-            highlightSelectionMatches: {
-                minChars: 2,
-                style: 'akr-highlight'
-            },
-            autoCloseTags: true,
-            showTrailingSpace: true
+            maxLines: Infinity,
+            minLines: 30,
+            enableBasicAutocompletion: true,
+            enableLiveAutocompletion: true,
         });
-        editor.getDoc().setValue("{!! $tinkercode !!}");
-        editor.setOption("extraKeys", {
-            'Ctrl-/': function(cm) {
-                cm.toggleComment();
-            }
-        });
-        // editor.setOption('extraKeys', {"Ctrl-Space": function(){
-        //     var options = {
-        //         hint: function() {
-        //             return {
-        //                 from: editor.getDoc().getCursor(),
-        //                 to: editor.getDoc().getCursor()
-        //             }
-        //         },
-        //         pick: function(completion){
-        //             console.log(completion);
-        //         }
-        //     };
-        //     editor.showHint(options);
-        // }});
+        editor.setValue("{!! $tinkercode !!}");
+    });
+
+    $(document).on('submit', '#tinker-form', function(event) {
+        $('#tinkercode').val(editor.getValue());
+        $.pjax.submit(event, '#tinker_result', {'Ok': 'sdfsdf'});
     });
 </script>
