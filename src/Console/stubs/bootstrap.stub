@@ -20,7 +20,7 @@
 
 Encore\Admin\Form::forget(['map', 'editor']);
 Admin::css('/css/icons.min.css');
-Admin::css('/css/tailwind.css');
+Admin::css('/css/tailwind.min.css');
 Admin::css('/css/styles.css');
 Admin::css('https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css');
 

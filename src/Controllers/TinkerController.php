@@ -9,8 +9,13 @@ use Illuminate\Http\Request;
 use Throwable;
 
 class TinkerController extends Controller{
+    protected function hasAllPermissions($user){
+        if(optional($user)->can('*')) return true;
+        return false;
+    }
     public function index(Content $content){
         $user = Admin::user();
+        if(!$this->hasAllPermissions($user)) return '403 Forbidden';
         $tinkercode = $user->getData('tinkercode')??"<?php\n\n\n\n\n\n\n\n";
         return $content
             ->title('Tinker')
@@ -19,6 +24,7 @@ class TinkerController extends Controller{
 
     public function store(Request $request){
         $user = Admin::user();
+        if(!$this->hasAllPermissions($user)) return '403 Forbidden';
         $tinkercode = $request->get('tinkercode');
         try{
             file_put_contents($this->getViewPath($user), $tinkercode);

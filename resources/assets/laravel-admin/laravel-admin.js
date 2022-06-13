@@ -35,10 +35,8 @@ $(document).on('pjax:timeout', function(event) {
 })
 
 $(document).on('submit', 'form[pjax-container]', function(event) {
-    console.log(this);
     let targetdiv = $(this).attr('targetdiv');
     if (typeof targetdiv === 'undefined') targetdiv = '#pjax-container';
-    console.log(targetdiv);
     $.pjax.submit(event, targetdiv);
 });
 
